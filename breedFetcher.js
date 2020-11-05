@@ -12,10 +12,16 @@ request(url, (error, response, body) => {
   }
   const data = JSON.parse(body);
   if (response.statusCode === 200) {
-    if (!data[0]) {
-      console.log("The breed you typed: " + searchBreed + " is not found!");
-    } else {
-      console.log(data[0].description);
-    }
+    fs.writeFile(path, body, (err) => {
+      if (err) {
+        throw err;
+      }
+
+      if (!data[0]) {
+        console.log("The breed you typed: " + searchBreed + " is not found!");
+      } else {
+        console.log(data[0].description);
+      }
+    });
   }
 });
